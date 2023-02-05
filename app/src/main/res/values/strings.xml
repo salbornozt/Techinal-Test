@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Prueba_ceiba</string>
+    <string name="search_hint">Buscar usuario</string>
+    <string name="btn_go_to_details">Ver Publicaciones</string>
+    <string name="progress_dialog_title">Cargando Usuarios</string>
+    <string name="progress_dialog_message">espere...</string>
+    <string name="empty_list_message">List is empty</string>
 </resources>
