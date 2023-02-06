@@ -22,7 +22,7 @@ import com.satdev.prueba_ceiba.featureList.presentation.adapter.UserListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ListFragment : Fragment(), UserListAdapter.UserClickListener {
+class ListFragment : Fragment(), UserListAdapter.UserClickListener, UserListAdapter.UserFilterListener {
 
 
     private val viewModel: ListViewModel by viewModels()
@@ -71,6 +71,7 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
 
         binding.userListSearch.addTextChangedListener {
             adapter.filter.filter(it.toString())
+
         }
     }
 
@@ -81,14 +82,13 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
     }
 
     private fun initRecyclerView() {
-        _adapter = UserListAdapter(this)
+        _adapter = UserListAdapter(this,this)
         binding.userList.layoutManager = LinearLayoutManager(activity)
         binding.userList.adapter = adapter
         /*binding.userList.addOnChildAttachStateChangeListener(object : RecyclerView.OnChildAttachStateChangeListener{
             override fun onChildViewAttachedToWindow(view: View) {
-                if (adapter.itemCount > 0) {
-                    binding.emptyListMessage.visibility = View.GONE
-                }
+                Log.d("sat_tag", "onChildViewDetachedFromWindow: ${adapter.itemCount}")
+
                 //binding.emptyListMessage.visibility = View.GONE
             }
 
@@ -97,6 +97,8 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
                 if (adapter.itemCount == 0) {
                     binding.emptyListMessage.visibility = View.VISIBLE
 
+                }else if (adapter.itemCount > 0){
+                    binding.emptyListMessage.visibility = View.GONE
                 }
             }
         })*/
@@ -108,6 +110,15 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
             progressDialog.show()
         } else {
             progressDialog.dismiss()
+        }
+    }
+
+    override fun onFilterResult(count: Int) {
+        if (adapter.itemCount == 0) {
+            binding.emptyListMessage.visibility = View.VISIBLE
+
+        }else if (adapter.itemCount > 0){
+            binding.emptyListMessage.visibility = View.GONE
         }
     }
 

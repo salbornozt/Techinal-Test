@@ -1,6 +1,5 @@
 package com.satdev.prueba_ceiba.featureList.data.repository
 
-import android.util.Log
 import com.satdev.prueba_ceiba.core.data.util.Resource
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersCacheDataSource
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersLocalDataSource
@@ -17,20 +16,28 @@ class UsersRepositoryImpl constructor(
         return getUsersFromCache()
     }
 
-    suspend fun getUsersFromCache(): Resource<List<User>> {
+    private suspend fun getUsersFromCache(): Resource<List<User>> {
         lateinit var userList: List<User>
         try {
             userList = usersCacheDataSource.getUsersFromCache()
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("TAG", "getUsersFromCache: ", e)
             return Resource.Error(e.message ?: "Error al traer resultados")
         }
         if (userList.isNotEmpty()){
             return Resource.Success(userList)
         }else {
-            userList = getUsersFromDb().data ?: listOf()
-            usersCacheDataSource.saveUsersToCache(userList)
+            when(val result = getUsersFromDb()){
+                is Resource.Success->{
+                    userList = result.data ?: listOf()
+                    usersCacheDataSource.saveUsersToCache(userList)
+                }
+                else ->{
+                    return result
+                }
+            }
+
+
         }
         return Resource.Success(userList)
     }
@@ -41,14 +48,21 @@ class UsersRepositoryImpl constructor(
             userList = usersLocalDataSource.getUserListFromDb()
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e("TAG", "getUsersFromDb: ",e)
             return Resource.Error(e.message ?: "Ocurrió un error al leer los reultados")
         }
         if (userList.isNotEmpty()){
             return Resource.Success(userList)
         }else{
-            userList = getUsersFromWebService().data ?: listOf()
-            usersLocalDataSource.insertUserToDb(userList)
+            when(val result = getUsersFromWebService()){
+                is Resource.Success->{
+                    userList = result.data ?: listOf()
+                    usersLocalDataSource.insertUserToDb(userList)
+                }
+                else ->{
+                    return result
+                }
+            }
+
         }
         return Resource.Success(userList)
     }
@@ -63,7 +77,6 @@ class UsersRepositoryImpl constructor(
             }
         }catch (e:Exception){
             e.printStackTrace()
-            Log.e("TAG", "getUsersFromWebService: ", e)
             return Resource.Error(message = e.message ?: "Ocurrió un error al traer los resultados")
         }
         return Resource.Success(userList)

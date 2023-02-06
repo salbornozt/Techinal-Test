@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.satdev.prueba_ceiba.databinding.UserListItemBinding
 import com.satdev.prueba_ceiba.featureList.data.model.User
 
-class UserListAdapter (private val listener: UserClickListener) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>(),Filterable{
+class UserListAdapter (private val listener: UserClickListener, private val userFilterListener: UserFilterListener) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>(),Filterable{
     interface UserClickListener{
         fun onUserClick(user: User, position:Int)
+    }
+    interface UserFilterListener{
+        fun onFilterResult(count:Int)
     }
     private var userList = arrayListOf<User>()
     private var userListFull = arrayListOf<User>()
@@ -69,6 +72,7 @@ class UserListAdapter (private val listener: UserClickListener) : RecyclerView.A
         override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
             userList.clear()
             userList.addAll(p1?.values as Collection<User>)
+            userFilterListener.onFilterResult(p1.count)
             notifyDataSetChanged()
         }
     }

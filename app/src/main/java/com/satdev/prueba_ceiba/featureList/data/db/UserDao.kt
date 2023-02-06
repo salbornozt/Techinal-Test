@@ -10,7 +10,7 @@ import com.satdev.prueba_ceiba.featureList.data.model.User
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveUsers(movies: List<User>)
+    suspend fun saveUsers(users: List<User>)
 
     @Query("DELETE FROM users")
     suspend fun deleteAllUsers()
