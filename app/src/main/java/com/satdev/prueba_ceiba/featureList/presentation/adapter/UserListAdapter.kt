@@ -8,11 +8,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.satdev.prueba_ceiba.databinding.UserListItemBinding
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 
 class UserListAdapter (private val listener: UserClickListener) : RecyclerView.Adapter<UserListAdapter.UserViewHolder>(),Filterable{
     interface UserClickListener{
-        fun onUserClick(user:User,position:Int)
+        fun onUserClick(user: User, position:Int)
     }
     private var userList = arrayListOf<User>()
     private var userListFull = arrayListOf<User>()
@@ -21,6 +21,7 @@ class UserListAdapter (private val listener: UserClickListener) : RecyclerView.A
         userList.clear()
         userList.addAll(list)
         userListFull = ArrayList(list)
+        Log.d("sat_tag", "performFiltering: lista pp  ${userListFull.size}")
         notifyDataSetChanged()
     }
 
@@ -42,6 +43,7 @@ class UserListAdapter (private val listener: UserClickListener) : RecyclerView.A
         override fun performFiltering(p0: CharSequence?): FilterResults {
             val filteredList: ArrayList<User> = ArrayList()
             if (p0 == null || p0.length == 0) {
+                Log.d("sat_tag", "performFiltering: lista ${userListFull.size}")
                 filteredList.addAll(userListFull)
             } else {
                 val pattern = p0.toString().lowercase().trim { it <= ' ' }
@@ -57,6 +59,8 @@ class UserListAdapter (private val listener: UserClickListener) : RecyclerView.A
                 }
             }
             val results = FilterResults()
+            Log.d("sat_tag", "performFiltering: ${filteredList.size}")
+
             results.values = filteredList
 
             return results
@@ -73,7 +77,7 @@ class UserListAdapter (private val listener: UserClickListener) : RecyclerView.A
         init {
             binding.btnGoToPost.setOnClickListener(this)
         }
-        fun bind(item:User){
+        fun bind(item: User){
             binding.userEmail.setText(item.email)
             binding.userName.setText(item.name)
             binding.userPhone.setText(item.phone)

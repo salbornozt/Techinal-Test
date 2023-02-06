@@ -1,6 +1,6 @@
 package com.satdev.prueba_ceiba.featureList.data.repository.datasource
 
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 
 interface UsersLocalDataSource {
     suspend fun getUserListFromDb():List<User>

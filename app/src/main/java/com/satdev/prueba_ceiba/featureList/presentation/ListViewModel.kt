@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.satdev.prueba_ceiba.core.data.util.Resource
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 import com.satdev.prueba_ceiba.featureList.domain.repository.UsersRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

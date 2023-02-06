@@ -47,9 +47,5 @@ object AppModule {
         return appDatabase.userDao()
     }
 
-    @Singleton
-    @Provides
-    fun providesUserRemoteDataSource(apiService: ApiService):UsersRemoteDataSource{
-        return UsersRemoteDataSourceImpl(apiService)
-    }
+
 }

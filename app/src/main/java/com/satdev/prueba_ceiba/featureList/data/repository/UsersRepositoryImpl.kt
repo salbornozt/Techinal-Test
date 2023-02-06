@@ -4,7 +4,7 @@ import android.util.Log
 import com.satdev.prueba_ceiba.core.data.util.Resource
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersCacheDataSource
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersLocalDataSource
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersRemoteDataSource
 import com.satdev.prueba_ceiba.featureList.domain.repository.UsersRepository
 

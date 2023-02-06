@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.satdev.prueba_ceiba.R
 import com.satdev.prueba_ceiba.core.data.util.Resource
 import com.satdev.prueba_ceiba.databinding.FragmentListBinding
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 import com.satdev.prueba_ceiba.featureList.presentation.adapter.UserListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,12 +26,12 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
 
 
     private val viewModel: ListViewModel by viewModels()
-    private var _binding : FragmentListBinding? = null
+    private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
-    private var _adapter : UserListAdapter? = null
+    private var _adapter: UserListAdapter? = null
     private val adapter get() = _adapter!!
 
-    private lateinit var progressDialog : ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,31 +47,30 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
         initProgressDialog()
 
         viewModel.userListLiveData.observe(viewLifecycleOwner, Observer {
-            when(it){
-                is Resource.Loading->{
+            when (it) {
+                is Resource.Loading -> {
                     showProgressDialog(true)
                 }
-                is Resource.Success->{
+                is Resource.Success -> {
                     showProgressDialog(false)
                     adapter.setUserList(it.data ?: listOf())
+                    initSearchFilter()
 
                 }
-                is Resource.Error ->{
+                is Resource.Error -> {
                     showProgressDialog(false)
 
                 }
             }
         })
-        initSearchFilter()
+
 
     }
 
     private fun initSearchFilter() {
-        binding.userListSearch.text?.clear()
+
         binding.userListSearch.addTextChangedListener {
-            if (it.toString().isNotBlank()) {
-                adapter.filter.filter(it.toString())
-            }
+            adapter.filter.filter(it.toString())
         }
     }
 
@@ -81,7 +80,7 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
         progressDialog.setMessage(getString(R.string.progress_dialog_message))
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         _adapter = UserListAdapter(this)
         binding.userList.layoutManager = LinearLayoutManager(activity)
         binding.userList.adapter = adapter
@@ -104,10 +103,10 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
 
     }
 
-    private fun showProgressDialog(show:Boolean){
-        if (show){
+    private fun showProgressDialog(show: Boolean) {
+        if (show) {
             progressDialog.show()
-        }else{
+        } else {
             progressDialog.dismiss()
         }
     }
@@ -119,6 +118,9 @@ class ListFragment : Fragment(), UserListAdapter.UserClickListener {
     }
 
     override fun onUserClick(user: User, position: Int) {
-        findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundleOf("id" to user.id))
+        findNavController().navigate(
+            R.id.action_listFragment_to_detailFragment,
+            bundleOf("id" to user.id, "name" to user.name, "phone" to user.phone,"email" to user.email)
+        )
     }
 }

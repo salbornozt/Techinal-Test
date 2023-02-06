@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/fragment_list_verticalmargin"
+    android:layout_marginTop="@dimen/fragment_list_verticalmargin">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fragment_list_horizontal_margin">
+        <TextView
+            android:id="@+id/post_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="Titulo"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView
+            android:id="@+id/post_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/post_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus leo ac nisi dapibus molestie. Fusce faucibus lectus ac massa bibendum, sed sollicitudin lacus pharetra. Sed convallis malesuada convallis. Donec ultricies nunc turpis, et consectetur elit molestie non. Mauris ornare et justo non dapibus. Cras non tellus vel ante sodales lobortis. Aenean eget sapien molestie, euismod lectus ac, pulvinar nunc. Praesent sapien ante, mattis non lectus vitae, faucibus ornare diam. Sed elementum ipsum nulla, at tristique metus rhoncus vitae. Nunc id libero non quam venenatis tempor. Nunc vitae blandit dolor. Praesent metus enim, eleifend et vehicula nec, viverra eu quam. Etiam ut sapien eleifend urna convallis hendrerit. "/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

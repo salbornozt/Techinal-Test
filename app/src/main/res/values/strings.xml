@@ -5,4 +5,5 @@
     <string name="progress_dialog_title">Cargando Usuarios</string>
     <string name="progress_dialog_message">espere...</string>
     <string name="empty_list_message">List is empty</string>
+    <string name="post_title">Post del usuario</string>
 </resources>

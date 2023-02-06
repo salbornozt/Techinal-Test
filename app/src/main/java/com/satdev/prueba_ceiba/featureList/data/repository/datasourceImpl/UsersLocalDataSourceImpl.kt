@@ -2,7 +2,7 @@ package com.satdev.prueba_ceiba.featureList.data.repository.datasourceImpl
 
 import com.satdev.prueba_ceiba.featureList.data.db.UserDao
 import com.satdev.prueba_ceiba.featureList.data.repository.datasource.UsersLocalDataSource
-import com.satdev.prueba_ceiba.featureList.domain.model.User
+import com.satdev.prueba_ceiba.featureList.data.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

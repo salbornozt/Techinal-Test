@@ -1,4 +1,4 @@
-package com.satdev.prueba_ceiba.featureList.domain.model
+package com.satdev.prueba_ceiba.featureList.data.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
